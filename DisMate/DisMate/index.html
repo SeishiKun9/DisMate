@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Disaster Alerts – Be Ready. Be Safe.</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="animations.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ALERT BANNER -->
+<div class="alert-banner" id="alertBanner">
+  <div class="alert-inner">
+    <span class="alert-icon">⚠️</span>
+    <span class="alert-text">
+      <strong>Fire Level #5</strong> in <strong>Booy, Tagbilaran, Bohol Area</strong>
+    </span>
+    <a href="hazard-map.html" class="alert-btn">View Details</a>
+    <button class="alert-close" onclick="document.getElementById('alertBanner').style.display='none'">✕</button>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-shield">
+        <img src="assets/shield-logo.svg" alt="Logo" onerror="this.style.display='none'"/>
+        <div class="logo-fallback">🛡️</div>
+      </div>
+      <span class="logo-text">DISASTER ALERTS</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="hazard-map.html">Hazard Map</a></li>
+      <li><a href="preparedness.html">Preparedness</a></li>
+      <li><a href="report.html">Report</a></li>
+      <li><a href="resources.html">Resources</a></li>
+    </ul>
+    <a href="login.html" class="btn-login">Login</a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="hazard-map.html">Hazard Map</a>
+    <a href="preparedness.html">Preparedness</a>
+    <a href="report.html">Report</a>
+    <a href="resources.html">Resources</a>
+    <a href="login.html" class="mobile-login">Login</a>
+  </div>
+</nav>
+
+<!-- HERO SECTION -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-text">
+      <h1 class="hero-title">Be Ready.<br><span class="accent">Be Safe.</span></h1>
+      <p class="hero-sub">Real-time disaster information for your community.</p>
+      <div class="hero-buttons">
+        <a href="hazard-map.html" class="btn-primary">View Hazard Map</a>
+        <a href="preparedness.html" class="btn-secondary">Prepare Now</a>
+      </div>
+    </div>
+    <div class="hero-map-visual">
+      <div class="map-island-bg">
+        <div class="map-pin pin-red" style="top:38%;left:22%">📍</div>
+        <div class="map-pin pin-yellow" style="top:55%;left:60%">📍</div>
+        <div class="map-pin pin-blue" style="top:28%;left:72%">🏠</div>
+        <div class="map-pulse" style="top:36%;left:20%"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HAZARD STATUS CARDS -->
+<section class="hazards" id="hazards">
+  <div class="container">
+    <div class="hazard-grid">
+      <div class="hazard-card" data-level="safe">
+        <div class="hazard-icon">🌀</div>
+        <div class="hazard-info">
+          <h3>Typhoon</h3>
+          <span class="badge safe">safe</span>
+        </div>
+        <a href="hazard-map.html?type=typhoon" class="btn-map">View Map</a>
+      </div>
+      <div class="hazard-card" data-level="moderate">
+        <div class="hazard-icon">🌊</div>
+        <div class="hazard-info">
+          <h3>Flood</h3>
+          <span class="badge moderate">moderate</span>
+        </div>
+        <a href="hazard-map.html?type=flood" class="btn-map">View Map</a>
+      </div>
+      <div class="hazard-card" data-level="high">
+        <div class="hazard-icon">🔥</div>
+        <div class="hazard-info">
+          <h3>Fire</h3>
+          <span class="badge high">High-risk</span>
+        </div>
+        <a href="hazard-map.html?type=fire" class="btn-map">View Map</a>
+      </div>
+      <div class="hazard-card" data-level="safe">
+        <div class="hazard-icon">⛰️</div>
+        <div class="hazard-info">
+          <h3>Landslide</h3>
+          <span class="badge safe">safe</span>
+        </div>
+        <a href="hazard-map.html?type=landslide" class="btn-map">View Map</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE HAZARD MAP -->
+<section class="live-map-section" id="liveMap">
+  <div class="container">
+    <h2 class="section-title">Live Hazard Map</h2>
+    <div class="map-wrapper">
+      <div class="map-embed" id="mapEmbed">
+        <!-- Leaflet Map -->
+        <div id="leafletMap" style="width:100%;height:100%;"></div>
+        <div class="map-overlay-card">
+          <h4>Live Hazard Map</h4>
+          <a href="hazard-map.html" class="btn-primary" style="font-size:0.85rem;padding:10px 18px;">Open Full Map</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY UPDATES -->
+<section class="community" id="community">
+  <div class="container">
+    <h2 class="section-title">Community Updates</h2>
+    <div class="updates-grid" id="updatesGrid">
+
+      <div class="update-card">
+        <div class="update-header">
+          <div class="avatar">
+            <img src="assets/mayor.jpg" alt="Mayor Jane Yap" onerror="this.style.display='none'" />
+            <div class="avatar-fallback">JY</div>
+          </div>
+          <div class="update-meta">
+            <span class="update-name">Mayor Jane Yap</span>
+            <span class="official-badge">OFFICIAL</span>
+            <p class="update-time">20 Mins ago</p>
+          </div>
+        </div>
+        <p class="update-body">
+          The fire in Brgy. Booy is now extinguished and the situation is under control.
+          Thank you to our responders. Stay safe, Tagbilaranons!<br/>
+          <em>— Mayor Jane Yap</em>
+        </p>
+      </div>
+
+      <div class="update-card">
+        <div class="update-header">
+          <div class="avatar">
+            <img src="assets/congressman.jpg" alt="Cong. Baba Yap" onerror="this.style.display='none'" />
+            <div class="avatar-fallback">BY</div>
+          </div>
+          <div class="update-meta">
+            <span class="update-name">Cong. Baba Yap</span>
+            <span class="official-badge">OFFICIAL</span>
+            <p class="update-time">3 hours ago</p>
+          </div>
+        </div>
+        <p class="update-body">
+          The fire in Brgy. Booy is now at Level 5 Alarm. Our teams are on-site working to contain it.
+          Please stay alert. Stay safe, Tagbilaranons.<br/>
+          <em>— Cong. Baba Yap</em>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>Emergency Hotlines</h4>
+      <ul>
+        <li>TARSIER 117</li>
+        <li>911</li>
+        <li>Philippine Red Cross – Bohol: <a href="tel:09076088973">0907-608-8973</a></li>
+        <li>PNP Bohol Provincial Office: <a href="tel:09173162297">0917-316-2297</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>LGU's Hotlines</h4>
+      <ul>
+        <li>PDRRMO (Disaster Office): <a href="tel:09106303108">0910-630-3108</a></li>
+        <li>TARSIER 117 (Rescue): <a href="tel:038412960">(038) 412-0960</a></li>
+        <li>Provincial Governor's Office: <a href="tel:0384113300">(038) 411-3300</a></li>
+        <li>Provincial Health Office: <a href="tel:0384114829">(038) 411-4829</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>About Us</h4>
+      <ul>
+        <li><a href="#">Contact us</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="preparedness.html">Preparedness Guide</a></li>
+        <li><a href="report.html">Report an Incident</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Disaster Alerts – Bohol. All rights reserved. | Powered by PDRRMO</p>
+  </div>
+</footer>
+
+<!-- Leaflet JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="map.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

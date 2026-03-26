@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Report – Disaster Alerts</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="animations.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    .page-header{background:linear-gradient(135deg,#7b1fa2,#c2185b);color:#fff;padding:40px 0 32px}
+    .page-title{font-family:var(--font-head);font-size:2rem;font-weight:800;margin-bottom:8px}
+    .page-sub{font-size:1rem;opacity:.78}
+    .report-section{padding:60px 0;background:var(--bg)}
+    .report-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:start}
+    @media(max-width:768px){.report-grid{grid-template-columns:1fr}}
+    .report-form-box{background:#fff;border-radius:var(--radius);padding:36px 32px;box-shadow:var(--shadow-md);border:1px solid var(--border)}
+    .form-title{font-family:var(--font-head);font-size:1.3rem;font-weight:800;color:var(--blue-dark);margin-bottom:24px}
+    .form-group{margin-bottom:20px}
+    .form-group label{display:block;font-size:0.87rem;font-weight:600;color:var(--text-dark);margin-bottom:8px}
+    .form-group input,.form-group select,.form-group textarea{
+      width:100%;padding:12px 16px;border:2px solid var(--border);border-radius:var(--radius-sm);
+      font-family:var(--font-body);font-size:0.9rem;color:var(--text-dark);
+      transition:border-color .2s;outline:none;background:var(--bg)
+    }
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--blue-light);background:#fff}
+    .form-group textarea{resize:vertical;min-height:110px}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .severity-group{display:flex;gap:10px;flex-wrap:wrap}
+    .sev-btn{border:2px solid var(--border);background:transparent;padding:8px 18px;border-radius:20px;font-size:0.85rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:var(--font-body);color:var(--text-mid)}
+    .sev-btn.low.active{border-color:#43a047;background:#e8f5e9;color:#2e7d32}
+    .sev-btn.med.active{border-color:#f57c00;background:#fff3e0;color:#f57c00}
+    .sev-btn.high.active{border-color:#e53935;background:#ffebee;color:#e53935}
+    .upload-area{border:2px dashed var(--border);border-radius:var(--radius-sm);padding:28px;text-align:center;cursor:pointer;transition:all .2s;background:var(--bg)}
+    .upload-area:hover{border-color:var(--blue-light);background:#f0f6ff}
+    .upload-icon{font-size:2rem;margin-bottom:8px}
+    .upload-area p{font-size:0.85rem;color:var(--text-soft)}
+    .upload-area strong{color:var(--blue-light)}
+    .submit-btn{width:100%;background:var(--blue-dark);color:#fff;border:none;padding:15px;border-radius:30px;font-family:var(--font-head);font-size:1rem;font-weight:700;cursor:pointer;transition:all .25s;margin-top:8px}
+    .submit-btn:hover{background:var(--blue-mid);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+    .info-panel{display:flex;flex-direction:column;gap:20px}
+    .info-card{background:#fff;border-radius:var(--radius);padding:24px;border:1px solid var(--border);box-shadow:var(--shadow-sm)}
+    .info-card h4{font-family:var(--font-head);font-weight:700;font-size:1rem;color:var(--blue-dark);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+    .info-card p,.info-card li{font-size:0.87rem;color:var(--text-mid);line-height:1.6;margin-bottom:6px}
+    .info-card ul{padding-left:18px;list-style:disc}
+    .hotline-list{display:flex;flex-direction:column;gap:8px}
+    .hotline-item{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--bg);border-radius:var(--radius-sm)}
+    .hotline-item a{color:var(--blue-light);font-weight:700;font-size:0.88rem}
+    .success-modal{display:none;position:fixed;inset:0;background:rgba(10,36,99,0.5);z-index:9999;align-items:center;justify-content:center}
+    .success-modal.show{display:flex}
+    .success-box{background:#fff;border-radius:var(--radius);padding:40px 36px;text-align:center;max-width:400px;width:90%;box-shadow:var(--shadow-lg)}
+    .success-box .icon{font-size:3rem;margin-bottom:16px}
+    .success-box h3{font-family:var(--font-head);font-size:1.3rem;font-weight:800;color:var(--blue-dark);margin-bottom:10px}
+    .success-box p{font-size:0.9rem;color:var(--text-mid);margin-bottom:20px}
+    .success-box button{background:var(--blue-dark);color:#fff;border:none;padding:12px 28px;border-radius:20px;font-weight:700;cursor:pointer;font-family:var(--font-body)}
+  </style>
+</head>
+<body>
+<div class="alert-banner"><div class="alert-inner"><span class="alert-icon">⚠️</span><span class="alert-text"><strong>Fire Level #5</strong> in <strong>Booy, Tagbilaran, Bohol Area</strong></span><button class="alert-close" onclick="this.closest('.alert-banner').style.display='none'">✕</button></div></div>
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo"><div class="logo-fallback">🛡️</div><span class="logo-text">DISASTER ALERTS</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="hazard-map.html">Hazard Map</a></li>
+      <li><a href="preparedness.html">Preparedness</a></li>
+      <li><a href="report.html" class="active">Report</a></li>
+      <li><a href="resources.html">Resources</a></li>
+    </ul>
+    <a href="login.html" class="btn-login">Login</a>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a><a href="hazard-map.html">Hazard Map</a><a href="preparedness.html">Preparedness</a><a href="report.html">Report</a><a href="resources.html">Resources</a><a href="login.html" class="mobile-login">Login</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <h1 class="page-title">🚨 Report an Incident</h1>
+    <p class="page-sub">Help your community stay safe by reporting disasters and hazards</p>
+  </div>
+</div>
+
+<section class="report-section">
+  <div class="container">
+    <div class="report-grid">
+
+      <!-- FORM -->
+      <div class="report-form-box">
+        <h3 class="form-title">Submit Incident Report</h3>
+
+        <div class="form-group">
+          <label>Type of Incident *</label>
+          <select id="incidentType">
+            <option value="">-- Select incident type --</option>
+            <option>🔥 Fire</option>
+            <option>🌊 Flood</option>
+            <option>🌀 Typhoon</option>
+            <option>⛰️ Landslide</option>
+            <option>🏚️ Building Collapse</option>
+            <option>🚗 Road Accident</option>
+            <option>💧 Water Shortage</option>
+            <option>⚡ Power Outage</option>
+            <option>🆘 Other Emergency</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Barangay *</label>
+            <input type="text" id="barangay" placeholder="e.g. Brgy. Booy"/>
+          </div>
+          <div class="form-group">
+            <label>Municipality *</label>
+            <input type="text" id="municipality" placeholder="e.g. Tagbilaran City"/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Severity Level *</label>
+          <div class="severity-group">
+            <button class="sev-btn low" onclick="setSeverity(this,'low')">🟢 Low</button>
+            <button class="sev-btn med" onclick="setSeverity(this,'med')">🟡 Moderate</button>
+            <button class="sev-btn high" onclick="setSeverity(this,'high')">🔴 High / Critical</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Description *</label>
+          <textarea id="description" placeholder="Describe what you observed — location, number of people affected, current situation..."></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" placeholder="Optional"/>
+          </div>
+          <div class="form-group">
+            <label>Contact Number</label>
+            <input type="tel" placeholder="Optional"/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Photo / Video Evidence</label>
+          <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+            <div class="upload-icon">📷</div>
+            <p><strong>Click to upload</strong> or drag & drop</p>
+            <p>PNG, JPG, MP4 up to 20MB</p>
+          </div>
+          <input type="file" id="fileInput" accept="image/*,video/*" style="display:none" multiple onchange="showFiles(this)"/>
+          <div id="fileList" style="margin-top:8px;font-size:0.82rem;color:var(--text-soft)"></div>
+        </div>
+
+        <button class="submit-btn" onclick="submitReport()">📤 Submit Report</button>
+      </div>
+
+      <!-- INFO PANEL -->
+      <div class="info-panel">
+        <div class="info-card">
+          <h4>⚡ Emergency? Call First!</h4>
+          <p>If there is an immediate threat to life, <strong>call emergency services first</strong> before submitting a report.</p>
+          <div class="hotline-list">
+            <div class="hotline-item"><span>TARSIER 117</span><a href="tel:117">📞 117</a></div>
+            <div class="hotline-item"><span>Emergency</span><a href="tel:911">📞 911</a></div>
+            <div class="hotline-item"><span>PDRRMO</span><a href="tel:09106303108">📞 0910-630-3108</a></div>
+            <div class="hotline-item"><span>Red Cross</span><a href="tel:09076088973">📞 0907-608-8973</a></div>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <h4>📋 What to Include</h4>
+          <ul>
+            <li>Exact location (barangay and street)</li>
+            <li>Type and scale of the incident</li>
+            <li>Number of people affected</li>
+            <li>Any injuries or casualties</li>
+            <li>Photo or video if safe to capture</li>
+            <li>Time the incident started</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h4>✅ After You Submit</h4>
+          <p>Your report will be reviewed by our PDRRMO team and verified by local authorities. Verified reports appear on the Live Hazard Map within 15–30 minutes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUCCESS MODAL -->
+<div class="success-modal" id="successModal">
+  <div class="success-box">
+    <div class="icon">✅</div>
+    <h3>Report Submitted!</h3>
+    <p>Thank you for keeping your community safe. Your report has been sent to the PDRRMO team for verification.</p>
+    <button onclick="closeModal()">Back to Report</button>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-bottom"><p>© 2026 Disaster Alerts – Bohol | <a href="index.html" style="color:rgba(255,255,255,0.5)">Back to Home</a></p></div>
+</footer>
+<script src="main.js"></script>
+<script>
+let selectedSeverity = null;
+function setSeverity(btn, level) {
+  document.querySelectorAll('.sev-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  selectedSeverity = level;
+}
+function showFiles(input) {
+  const list = document.getElementById('fileList');
+  list.innerHTML = Array.from(input.files).map(f => `📎 ${f.name}`).join('<br/>');
+}
+function submitReport() {
+  const type = document.getElementById('incidentType').value;
+  const brgy = document.getElementById('barangay').value;
+  const desc = document.getElementById('description').value;
+  if (!type || !brgy || !desc || !selectedSeverity) {
+    alert('Please fill in all required fields and select a severity level.');
+    return;
+  }
+  document.getElementById('successModal').classList.add('show');
+}
+function closeModal() {
+  document.getElementById('successModal').classList.remove('show');
+  document.getElementById('incidentType').value = '';
+  document.getElementById('barangay').value = '';
+  document.getElementById('municipality').value = '';
+  document.getElementById('description').value = '';
+  document.getElementById('fileList').innerHTML = '';
+  document.querySelectorAll('.sev-btn').forEach(b => b.classList.remove('active'));
+  selectedSeverity = null;
+}
+</script>
+</body>
+</html>

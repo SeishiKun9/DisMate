@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Preparedness – Disaster Alerts</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="animations.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    .page-header{background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));color:#fff;padding:40px 0 32px}
+    .page-title{font-family:var(--font-head);font-size:2rem;font-weight:800;margin-bottom:8px}
+    .page-sub{font-size:1rem;opacity:.78}
+    .prep-section{padding:56px 0}
+    .prep-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:32px}
+    @media(max-width:768px){.prep-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:500px){.prep-grid{grid-template-columns:1fr}}
+    .prep-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px;transition:all .25s}
+    .prep-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+    .prep-card-icon{font-size:2.6rem;margin-bottom:14px}
+    .prep-card h3{font-family:var(--font-head);font-size:1.05rem;font-weight:700;color:var(--blue-dark);margin-bottom:10px}
+    .prep-card ul{padding-left:18px;list-style:disc}
+    .prep-card ul li{font-size:0.88rem;color:var(--text-mid);margin-bottom:6px;line-height:1.5}
+    .steps-section{padding:56px 0;background:var(--bg-card)}
+    .steps-title{font-family:var(--font-head);font-size:1.5rem;font-weight:800;color:var(--blue-dark);margin-bottom:32px}
+    .steps-list{counter-reset:step;display:flex;flex-direction:column;gap:16px}
+    .step-item{display:flex;gap:18px;align-items:flex-start;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;transition:all .2s}
+    .step-item:hover{border-color:var(--blue-light);box-shadow:var(--shadow-sm)}
+    .step-num{background:var(--blue-dark);color:#fff;font-family:var(--font-head);font-weight:800;font-size:1.1rem;min-width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .step-content h4{font-family:var(--font-head);font-weight:700;font-size:0.97rem;color:var(--blue-dark);margin-bottom:5px}
+    .step-content p{font-size:0.87rem;color:var(--text-mid);line-height:1.6}
+    .kit-section{padding:56px 0;background:linear-gradient(135deg,#e8f0ff,#d6e8ff)}
+    .kit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:32px}
+    @media(max-width:768px){.kit-grid{grid-template-columns:repeat(2,1fr)}}
+    .kit-item{background:#fff;border-radius:var(--radius-sm);padding:20px 16px;text-align:center;box-shadow:var(--shadow-sm)}
+    .kit-emoji{font-size:2rem;margin-bottom:10px}
+    .kit-item p{font-size:0.85rem;font-weight:600;color:var(--text-dark)}
+  </style>
+</head>
+<body>
+<div class="alert-banner"><div class="alert-inner"><span class="alert-icon">⚠️</span><span class="alert-text"><strong>Fire Level #5</strong> in <strong>Booy, Tagbilaran, Bohol Area</strong></span><button class="alert-close" onclick="this.closest('.alert-banner').style.display='none'">✕</button></div></div>
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo"><div class="logo-fallback">🛡️</div><span class="logo-text">DISASTER ALERTS</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="hazard-map.html">Hazard Map</a></li>
+      <li><a href="preparedness.html" class="active">Preparedness</a></li>
+      <li><a href="report.html">Report</a></li>
+      <li><a href="resources.html">Resources</a></li>
+    </ul>
+    <a href="login.html" class="btn-login">Login</a>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a><a href="hazard-map.html">Hazard Map</a><a href="preparedness.html">Preparedness</a><a href="report.html">Report</a><a href="resources.html">Resources</a><a href="login.html" class="mobile-login">Login</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <h1 class="page-title">🛡️ Disaster Preparedness</h1>
+    <p class="page-sub">Know what to do before, during, and after a disaster</p>
+  </div>
+</div>
+
+<section class="prep-section">
+  <div class="container">
+    <h2 class="section-title">Prepare for Each Hazard</h2>
+    <div class="prep-grid">
+      <div class="prep-card reveal">
+        <div class="prep-card-icon">🔥</div>
+        <h3>Fire</h3>
+        <ul>
+          <li>Install smoke alarms on every floor</li>
+          <li>Know two ways out of every room</li>
+          <li>Practice fire drills twice a year</li>
+          <li>Never leave cooking unattended</li>
+          <li>Keep a fire extinguisher handy</li>
+        </ul>
+      </div>
+      <div class="prep-card reveal">
+        <div class="prep-card-icon">🌊</div>
+        <h3>Flood</h3>
+        <ul>
+          <li>Know your barangay's evacuation routes</li>
+          <li>Never cross flooded roads on foot</li>
+          <li>Keep documents in waterproof bags</li>
+          <li>Stock 3-day water and food supply</li>
+          <li>Follow LGU flood advisories</li>
+        </ul>
+      </div>
+      <div class="prep-card reveal">
+        <div class="prep-card-icon">🌀</div>
+        <h3>Typhoon</h3>
+        <ul>
+          <li>Secure loose items outside your home</li>
+          <li>Charge all devices before landfall</li>
+          <li>Stay indoors during Signal #2 and above</li>
+          <li>Prepare a go-bag ready to grab</li>
+          <li>Monitor PAGASA updates regularly</li>
+        </ul>
+      </div>
+      <div class="prep-card reveal">
+        <div class="prep-card-icon">⛰️</div>
+        <h3>Landslide</h3>
+        <ul>
+          <li>Avoid slopes during heavy rain</li>
+          <li>Watch for cracks in the ground</li>
+          <li>Listen for unusual sounds (cracking)</li>
+          <li>Move to higher ground immediately</li>
+          <li>Report warning signs to your barangay</li>
+        </ul>
+      </div>
+      <div class="prep-card reveal">
+        <div class="prep-card-icon">🏥</div>
+        <h3>First Aid Basics</h3>
+        <ul>
+          <li>Learn CPR and basic first aid</li>
+          <li>Keep a first aid kit at home</li>
+          <li>Know the nearest hospital</li>
+          <li>Store prescription meds (7-day supply)</li>
+          <li>Learn how to treat burns & wounds</li>
+        </ul>
+      </div>
+      <div class="prep-card reveal">
+        <div class="prep-card-icon">📋</div>
+        <h3>Family Plan</h3>
+        <ul>
+          <li>Designate a family meeting point</li>
+          <li>Keep emergency contacts written down</li>
+          <li>Assign roles to each family member</li>
+          <li>Practice drills with children</li>
+          <li>Register with your barangay</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="steps-section">
+  <div class="container">
+    <h2 class="steps-title">Before a Disaster Strikes</h2>
+    <div class="steps-list">
+      <div class="step-item reveal"><div class="step-num">1</div><div class="step-content"><h4>Make a Family Emergency Plan</h4><p>Discuss evacuation routes, meeting points, and communication strategies with your family.</p></div></div>
+      <div class="step-item reveal"><div class="step-num">2</div><div class="step-content"><h4>Build an Emergency Kit (Go-Bag)</h4><p>Pack essentials like water, food, meds, flashlight, radio, and important documents.</p></div></div>
+      <div class="step-item reveal"><div class="step-num">3</div><div class="step-content"><h4>Know Your Evacuation Center</h4><p>Locate your barangay's designated evacuation center and the best route to reach it.</p></div></div>
+      <div class="step-item reveal"><div class="step-num">4</div><div class="step-content"><h4>Stay Informed</h4><p>Follow official channels: PAGASA, PHIVOLCS, NDRRMC, and your local government for updates.</p></div></div>
+      <div class="step-item reveal"><div class="step-num">5</div><div class="step-content"><h4>Protect Important Documents</h4><p>Store copies of birth certificates, land titles, and IDs in waterproof bags or cloud storage.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="kit-section">
+  <div class="container">
+    <h2 class="section-title">Your Go-Bag Checklist</h2>
+    <div class="kit-grid">
+      <div class="kit-item"><div class="kit-emoji">💧</div><p>3-Day Water Supply</p></div>
+      <div class="kit-item"><div class="kit-emoji">🥫</div><p>Non-Perishable Food</p></div>
+      <div class="kit-item"><div class="kit-emoji">🔦</div><p>Flashlight & Batteries</p></div>
+      <div class="kit-item"><div class="kit-emoji">📻</div><p>Battery-Powered Radio</p></div>
+      <div class="kit-item"><div class="kit-emoji">💊</div><p>First Aid Kit & Meds</p></div>
+      <div class="kit-item"><div class="kit-emoji">📄</div><p>Important Documents</p></div>
+      <div class="kit-item"><div class="kit-emoji">📱</div><p>Fully Charged Phone</p></div>
+      <div class="kit-item"><div class="kit-emoji">🪙</div><p>Cash (small bills)</p></div>
+      <div class="kit-item"><div class="kit-emoji">🧥</div><p>Change of Clothes</p></div>
+      <div class="kit-item"><div class="kit-emoji">🌧️</div><p>Rain Gear / Poncho</p></div>
+      <div class="kit-item"><div class="kit-emoji">🪥</div><p>Hygiene Supplies</p></div>
+      <div class="kit-item"><div class="kit-emoji">🔑</div><p>Extra House Keys</p></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-bottom"><p>© 2026 Disaster Alerts – Bohol | <a href="index.html" style="color:rgba(255,255,255,0.5)">Back to Home</a></p></div>
+</footer>
+<script src="main.js"></script>
+</body>
+</html>
