@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login – Disaster Alerts</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="animations.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body{background:linear-gradient(135deg,#0a2463 0%,#1a56a8 50%,#2f80ed 100%);min-height:100vh;display:flex;flex-direction:column}
+    .login-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 24px}
+    .login-box{background:#fff;border-radius:20px;padding:44px 40px;width:100%;max-width:440px;box-shadow:0 24px 64px rgba(10,36,99,0.3)}
+    @media(max-width:480px){.login-box{padding:32px 24px}}
+    .login-logo{text-align:center;margin-bottom:28px}
+    .login-logo .emoji{font-size:3rem;margin-bottom:8px}
+    .login-logo h2{font-family:var(--font-head);font-size:1.4rem;font-weight:800;color:var(--blue-dark)}
+    .login-logo p{font-size:0.88rem;color:var(--text-soft);margin-top:4px}
+    .login-tabs{display:flex;background:var(--bg);border-radius:30px;padding:4px;margin-bottom:28px}
+    .login-tab{flex:1;text-align:center;padding:9px;border-radius:24px;font-size:0.88rem;font-weight:600;cursor:pointer;transition:all .2s;color:var(--text-mid);border:none;background:transparent;font-family:var(--font-body)}
+    .login-tab.active{background:#fff;color:var(--blue-dark);box-shadow:var(--shadow-sm)}
+    .login-form-group{margin-bottom:18px}
+    .login-form-group label{display:block;font-size:0.85rem;font-weight:600;color:var(--text-dark);margin-bottom:8px}
+    .login-form-group input{width:100%;padding:13px 16px;border:2px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:0.92rem;outline:none;transition:border-color .2s;background:var(--bg);color:var(--text-dark)}
+    .login-form-group input:focus{border-color:var(--blue-light);background:#fff}
+    .login-btn{width:100%;background:var(--blue-dark);color:#fff;border:none;padding:14px;border-radius:30px;font-family:var(--font-head);font-size:1rem;font-weight:700;cursor:pointer;transition:all .25s;margin-top:8px}
+    .login-btn:hover{background:var(--blue-mid);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+    .login-divider{text-align:center;font-size:0.82rem;color:var(--text-soft);margin:18px 0;position:relative}
+    .login-divider::before,.login-divider::after{content:'';position:absolute;top:50%;width:38%;height:1px;background:var(--border)}
+    .login-divider::before{left:0} .login-divider::after{right:0}
+    .login-forgot{text-align:right;margin-top:-10px;margin-bottom:18px}
+    .login-forgot a{font-size:0.82rem;color:var(--blue-light);font-weight:600}
+    .form-panel{display:none} .form-panel.active{display:block}
+    .role-select{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+    .role-btn{flex:1;border:2px solid var(--border);background:transparent;padding:10px 8px;border-radius:10px;font-size:0.82rem;font-weight:600;cursor:pointer;transition:all .2s;text-align:center;font-family:var(--font-body);color:var(--text-mid)}
+    .role-btn:hover{border-color:var(--blue-light)}
+    .role-btn.active{border-color:var(--blue-dark);background:var(--blue-dark);color:#fff}
+    .back-home{text-align:center;margin-top:20px;font-size:0.85rem;color:rgba(255,255,255,0.7)}
+    .back-home a{color:#fff;font-weight:700}
+    .alert-dismiss{display:none}
+  </style>
+</head>
+<body>
+
+<nav class="navbar" id="navbar" style="top:0">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo"><div class="logo-fallback">🛡️</div><span class="logo-text">DISASTER ALERTS</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="hazard-map.html">Hazard Map</a></li>
+      <li><a href="preparedness.html">Preparedness</a></li>
+      <li><a href="report.html">Report</a></li>
+      <li><a href="resources.html">Resources</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="login-wrap">
+  <div>
+    <div class="login-box">
+      <div class="login-logo">
+        <div class="emoji">🛡️</div>
+        <h2>Disaster Alerts Portal</h2>
+        <p>Official responder & community login</p>
+      </div>
+
+      <div class="login-tabs">
+        <button class="login-tab active" onclick="switchTab('login',this)">Sign In</button>
+        <button class="login-tab" onclick="switchTab('register',this)">Register</button>
+      </div>
+
+      <!-- LOGIN -->
+      <div class="form-panel active" id="panel-login">
+        <div class="login-form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="you@example.com" id="loginEmail"/>
+        </div>
+        <div class="login-form-group">
+          <label>Password</label>
+          <input type="password" placeholder="••••••••" id="loginPw"/>
+        </div>
+        <div class="login-forgot"><a href="#">Forgot password?</a></div>
+        <button class="login-btn" onclick="doLogin()">Sign In</button>
+        <div class="login-divider">or sign in as</div>
+        <div class="role-select">
+          <button class="role-btn">👮 Responder</button>
+          <button class="role-btn">🏛️ LGU Official</button>
+          <button class="role-btn">👥 Community</button>
+        </div>
+      </div>
+
+      <!-- REGISTER -->
+      <div class="form-panel" id="panel-register">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="login-form-group"><label>First Name</label><input type="text" placeholder="Juan"/></div>
+          <div class="login-form-group"><label>Last Name</label><input type="text" placeholder="dela Cruz"/></div>
+        </div>
+        <div class="login-form-group"><label>Email Address</label><input type="email" placeholder="you@example.com"/></div>
+        <div class="login-form-group"><label>Contact Number</label><input type="tel" placeholder="09xx xxx xxxx"/></div>
+        <div class="login-form-group"><label>Barangay</label><input type="text" placeholder="e.g. Brgy. Cogon"/></div>
+        <div class="login-form-group"><label>Password</label><input type="password" placeholder="Min. 8 characters"/></div>
+        <button class="login-btn">Create Account</button>
+      </div>
+    </div>
+    <div class="back-home"><a href="index.html">← Back to Home</a></div>
+  </div>
+</div>
+
+<script>
+function switchTab(id, btn) {
+  document.querySelectorAll('.form-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.login-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+document.querySelectorAll('.role-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+function doLogin() {
+  const email = document.getElementById('loginEmail').value;
+  const pw = document.getElementById('loginPw').value;
+  if (!email || !pw) { alert('Please enter your email and password.'); return; }
+  alert('✅ Login successful! Welcome back.');
+}
+</script>
+</body>
+</html>

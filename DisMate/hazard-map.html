@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hazard Map – Disaster Alerts</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="animations.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ALERT BANNER -->
+<div class="alert-banner" id="alertBanner">
+  <div class="alert-inner">
+    <span class="alert-icon">⚠️</span>
+    <span class="alert-text"><strong>Fire Level #5</strong> in <strong>Booy, Tagbilaran, Bohol Area</strong></span>
+    <button class="alert-close" onclick="this.closest('.alert-banner').style.display='none'">✕</button>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-fallback">🛡️</div>
+      <span class="logo-text">DISASTER ALERTS</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="hazard-map.html" class="active">Hazard Map</a></li>
+      <li><a href="preparedness.html">Preparedness</a></li>
+      <li><a href="report.html">Report</a></li>
+      <li><a href="resources.html">Resources</a></li>
+    </ul>
+    <a href="login.html" class="btn-login">Login</a>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="hazard-map.html">Hazard Map</a>
+    <a href="preparedness.html">Preparedness</a>
+    <a href="report.html">Report</a>
+    <a href="resources.html">Resources</a>
+    <a href="login.html" class="mobile-login">Login</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="container">
+    <h1 class="page-title">🗺️ Live Hazard Map</h1>
+    <p class="page-sub">Real-time disaster monitoring across Bohol Province</p>
+  </div>
+</div>
+
+<!-- FILTER TABS -->
+<div class="filter-bar">
+  <div class="container">
+    <button class="filter-btn active" data-type="all">All Hazards</button>
+    <button class="filter-btn" data-type="fire">🔥 Fire</button>
+    <button class="filter-btn" data-type="flood">🌊 Flood</button>
+    <button class="filter-btn" data-type="typhoon">🌀 Typhoon</button>
+    <button class="filter-btn" data-type="landslide">⛰️ Landslide</button>
+  </div>
+</div>
+
+<!-- FULL MAP -->
+<div class="full-map-container">
+  <div id="fullMap"></div>
+  <div class="map-legend">
+    <h5>Legend</h5>
+    <div class="legend-item"><span class="dot red"></span> High Risk</div>
+    <div class="legend-item"><span class="dot orange"></span> Moderate</div>
+    <div class="legend-item"><span class="dot green"></span> Safe</div>
+    <div class="legend-item"><span class="dot blue"></span> Watch</div>
+  </div>
+</div>
+
+<!-- STATUS TABLE -->
+<section class="status-section">
+  <div class="container">
+    <h2 class="section-title">Barangay Status Summary</h2>
+    <div class="status-table-wrap">
+      <table class="status-table">
+        <thead>
+          <tr>
+            <th>Location</th>
+            <th>Hazard Type</th>
+            <th>Risk Level</th>
+            <th>Last Updated</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="row-high">
+            <td><strong>Brgy. Booy, Tagbilaran</strong></td>
+            <td>🔥 Fire</td>
+            <td><span class="badge high">High Risk</span></td>
+            <td>20 mins ago</td>
+            <td><a href="#" class="badge-link">Details</a></td>
+          </tr>
+          <tr class="row-moderate">
+            <td>Carmen</td>
+            <td>🌊 Flood</td>
+            <td><span class="badge moderate">Moderate</span></td>
+            <td>1 hour ago</td>
+            <td><a href="#" class="badge-link">Details</a></td>
+          </tr>
+          <tr class="row-moderate">
+            <td>Bilar</td>
+            <td>🌊 Flood</td>
+            <td><span class="badge moderate">Moderate</span></td>
+            <td>2 hours ago</td>
+            <td><a href="#" class="badge-link">Details</a></td>
+          </tr>
+          <tr>
+            <td>Danao</td>
+            <td>—</td>
+            <td><span class="badge safe">Safe</span></td>
+            <td>30 mins ago</td>
+            <td><a href="#" class="badge-link">Details</a></td>
+          </tr>
+          <tr>
+            <td>Panglao</td>
+            <td>—</td>
+            <td><span class="badge safe">Safe</span></td>
+            <td>45 mins ago</td>
+            <td><a href="#" class="badge-link">Details</a></td>
+          </tr>
+          <tr>
+            <td>Anda</td>
+            <td>—</td>
+            <td><span class="badge safe">Safe</span></td>
+            <td>1 hour ago</td>
+            <td><a href="#" class="badge-link">Details</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-bottom"><p>© 2026 Disaster Alerts – Bohol | <a href="index.html" style="color:rgba(255,255,255,0.5)">Back to Home</a></p></div>
+</footer>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const map = L.map('fullMap', { center: [9.65, 124.15], zoom: 10, scrollWheelZoom: true });
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap', maxZoom: 18
+  }).addTo(map);
+
+  function icon(color, emoji) {
+    return L.divIcon({
+      className: '',
+      html: `<div style="background:${color};border:3px solid #fff;border-radius:50% 50% 50% 0;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transform:rotate(-45deg);box-shadow:0 2px 8px rgba(0,0,0,0.3)"><span style="transform:rotate(45deg)">${emoji}</span></div>`,
+      iconSize: [36,36], iconAnchor: [18,36], popupAnchor: [0,-40]
+    });
+  }
+
+  const pts = [
+    { lat:9.648, lng:123.854, icon:icon('#e53935','🔥'), title:'Fire – Brgy. Booy', level:'HIGH RISK', color:'#e53935', detail:'Fire Level 5 Alarm.' },
+    { lat:9.73,  lng:124.22,  icon:icon('#f57c00','🌊'), title:'Flood Watch – Carmen', level:'MODERATE', color:'#f57c00', detail:'Monitor water levels.' },
+    { lat:9.82,  lng:124.35,  icon:icon('#f57c00','🌊'), title:'Flood – Bilar', level:'MODERATE', color:'#f57c00', detail:'Avoid floodways.' },
+    { lat:9.69,  lng:124.46,  icon:icon('#2e7d32','✅'), title:'Danao – Clear', level:'SAFE', color:'#2e7d32', detail:'No hazards.' },
+    { lat:9.56,  lng:123.75,  icon:icon('#2e7d32','✅'), title:'Panglao – Clear', level:'SAFE', color:'#2e7d32', detail:'No hazards.' },
+  ];
+  pts.forEach(p => L.marker([p.lat,p.lng],{icon:p.icon}).addTo(map)
+    .bindPopup(`<strong>${p.title}</strong><br/><span style="background:${p.color};color:#fff;font-size:0.72rem;padding:2px 10px;border-radius:10px;display:inline-block;margin:6px 0">${p.level}</span><p style="font-size:0.85rem;margin:0">${p.detail}</p>`));
+  L.circle([9.648,123.854],{radius:600,color:'#e53935',fillColor:'#e53935',fillOpacity:0.2,weight:2}).addTo(map);
+  L.polygon([[9.75,124.18],[9.80,124.26],[9.74,124.30],[9.70,124.22]],{color:'#f57c00',fillColor:'#f57c00',fillOpacity:0.15,weight:2,dashArray:'6,4'}).addTo(map);
+});
+
+// Filter buttons (UI only)
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+</script>
+<script src="js/main.js"></script>
+</body>
+</html>
